@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -35,6 +35,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Route::pattern('id', '[0-9]+');
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
@@ -46,6 +48,11 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            /***** added custom route file *****/
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/my_routes.php'));
         });
     }
 
