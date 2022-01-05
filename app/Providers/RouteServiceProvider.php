@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -35,7 +36,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // now always `id` parameter should be pass as regualar expression
         // Route::pattern('id', '[0-9]+');
+
+        // Explicit Binding [ Route model bindings ]
+        // Route::model('user', User::class);
+        // Custom Explicit Binding [ Route model bindings ]
+        Route::bind('custom_user', function ($value) {
+            return User::where('name', $value)->firstOrFail();
+        });
 
         $this->configureRateLimiting();
 
