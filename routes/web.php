@@ -217,10 +217,8 @@ Route::middleware('test-middleware')->group(function () {
 Route::withoutMiddleware('test-middleware')->group(function(){
 });
 
-/***** Controller function call *****/
-Route::get('/controller_1', 'TestController@controller_1');
-
-/***** use of missing in resource controller *****/
+/***** Controller - use of missing in resource controller *****/
+Route::resource('photos', ResourceController::class); // normal usage of ResourceController
 Route::resource('photos', ResourceController::class)
 ->missing(function (Request $request) {
     return redirect()->route('test1');
@@ -231,3 +229,8 @@ Route::resource('photos', ResourceController::class)->only([
 Route::resource('photos', ResourceController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
+
+Route::get('test_view', 'TestController@test_view');
+Route::get('test_blade', 'TestController@test_blade');
+Route::get('test_url_generation', 'TestController@test_url_generation');
+Route::get('test_session', 'TestController@test_session');
