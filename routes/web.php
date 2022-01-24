@@ -230,7 +230,22 @@ Route::resource('photos', ResourceController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
 
+/***** Blade Template *****/
 Route::get('test_view', 'TestController@test_view');
 Route::get('test_blade', 'TestController@test_blade');
+
+/***** URL *****/
 Route::get('test_url_generation', 'TestController@test_url_generation');
+
+/***** Session *****/
 Route::get('test_session', 'TestController@test_session');
+
+/***** Pagination *****/
+Route::get('test_pagination', 'TestController@test_pagination');
+
+/***** Storage *****/
+Route::get('test_file_upload', 'TestController@test_file_upload');
+
+/***** Eloquent *****/
+Route::get('test_eloquent', 'TestController@test_eloquent');
+Route::get('test_eloquent_relationship', 'TestController@test_eloquent_relationship');

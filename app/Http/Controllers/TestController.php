@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
@@ -17,7 +19,7 @@ class TestController extends Controller
      */
     public function __invoke(Request $request)
     {
-        info('Dont know how to use');
+        info('Dont know how to use __invoke');
     }
 
     public function __construct()
@@ -278,4 +280,326 @@ class TestController extends Controller
         $request->session()->invalidate();
     }
 
+    public function test_eloquent(Request $request)
+    {
+        // php artisan make:model Brand >>> Create normal eloquent
+        // php artisan make:model Brand --migration >>> Create normal eloquent
+
+        // same as --migration we can use below things to
+        // '--factory' OR '-f' >>> Model and a BrandFactory class
+        // '--seed' OR '-s' >>> Model and a BrandSeeder class
+        // '--controller' OR '-c' >>> Model and a BrandController class
+        // '--factory' OR '-f' >>> Model and a BrandFactory class
+        // '--factory' OR '-f' >>> Model and a BrandFactory class
+        // '--controller --resource --requests' OR '-crR' >>> resource controller and request class
+        // '--policy' >>> Model and a BrandPolicy class
+        // '-mfsc' >>> migration, factory, seeder, and controller
+        // '--all' >>> model, migration, factory, seeder, policy, controller, and form requests
+        // '--pivot' >>> pivot model
+
+
+        // return Brand::all(); // retrieving model data
+        // foreach (Brand::all() as $brand) {
+        //     echo $brand->name."<br/>";
+        // }
+
+        // return Brand::where('status', 'Active')
+        // ->orderBy('name')
+        // ->take(10)
+        // ->get();
+
+
+        // $brand = Brand::where('name', 'FR 900')->first();
+        // If you already have an instance of an Eloquent model that was retrieved from the database, you can "refresh" the model using the fresh and refresh methods
+        // $freshBrand = $brand->fresh();
+        // $brand = Brand::where('name', 'FR 900')->first();
+        // $brand->name = 'FR 456';
+        // $brand->refresh();
+        // $brand->name; // "FR 900"
+
+
+        // Brand::chunk(100, function ($brands) {
+        //     foreach ($brands as $brand) {
+        //         echo $brand->name."<br/>";
+        //     }
+        // });
+
+
+        // Brand::/* where('status', 'Active')-> */chunkById(200, function ($brands) {
+        //     $brands->each->update(['status' => 'aaa']);
+        // },'id'); // dont knw use of third argument
+
+
+        // $brands = Brand::get();
+        // $brands = $brands->reject(function ($brand) {
+        //     return $brand->custom_primary_id; // consider those record who have value null or empty in define column with reject method.
+        // });
+
+
+        // lazy work same as chunk behind the scene
+        // foreach (Brand::lazy() as $brand) {
+        //     echo $brand->name."<br/>";
+        // }
+
+        // Brand::where('status', 'aaa')
+        //     ->lazyById(200, $column = 'id')
+        //     ->each->update(['details' => 'test detail']);
+
+        //same as lazy bt it only helps with the single eloquent for eager load relation use lazy.
+        // foreach (Brand::cursor() as $brand) {
+        //     echo $brand->name . "<br/>";
+        // }
+
+
+        // $brand = Brand::addSelect([
+        //     'product' => Product::select('name')->limit(1)
+        // ])->get();
+
+
+        // $brand = Brand::find(1);
+        // $brand = Brand::where('status', 1)->first(); // retreive first element occures
+        // $brand = Brand::firstWhere('status', 1); // same as above in short form
+
+        // $brand = Brand::where('id', 1)->firstOr(function () {
+        //     // execute this part if not found
+        // });
+
+        // $brand = Brand::findOrFail(1); // 404 HTTP response is automatically if fail
+        // $brand = Brand::where('status', '=', 3)->firstOrFail();
+
+        // Retrieve brand by name or create it if it doesn't exist...
+        // $brand = Brand::firstOrCreate([
+        //     'name' => 'new branddd'
+        // ]);
+
+        // Retrieve brand by name or create it with the name, logo, and details attributes...
+        // $brand = Brand::firstOrCreate(
+        //                                 ['name' => 'Nike aaa', 'status' => 'Active'],
+        //                                 ['logo' => 1, 'details' => 'asasa asas']
+        //                             );
+
+        // first arg match data
+        // second arg insert data along with data which we passed to use
+        // $brand = Brand::updateOrCreate(
+        //                                 ['name' => 'Nike aaa', 'status' => 'Active'],
+        //                                 ['logo' => 1, 'details' => 'asasa asas']
+        //                             );
+
+        // first args = data to update or create
+        // second args = names of column which will match with data
+        // third args = columns that should be updated if a matching record already exists
+        // Brand::upsert([
+        //     ['name' => 'Oakland', 'logo' => 'San Diego', 'status' => 99],
+        //     ['name' => 'Chicago', 'logo' => 'New York', 'status' => 150]
+        // ], ['name', 'logo'], ['status']);
+
+        // Retrieve brand by name or instantiate a new Brand instance...
+        // $brand = Brand::firstOrNew([
+        //     'name' => 'London to Paris'
+        // ]);
+        // Retrieve brand by name or instantiate with the name, logo, and details attributes...
+        // $brand = Brand::firstOrNew(['name' => 'Nike aaa'], ['logo' => 1, 'details' => 'asasa asas']);
+
+        // $count = Brand::where('status', 'Active')->count();
+        // $max = Brand::where('status', 'Active')->max('id');
+
+        // create record method 1
+        // $save_brand = Brand::create([
+        //     'name'=>'aaa',
+        //     'logo' => 'aaa',
+        //     'details' => 'aaa',
+        // ]);
+
+        // create record method 2
+        // $brandObj = new Brand;
+        // $brandObj->name = 'bbb';
+        // $brandObj->logo = 'bbb';
+        // $brandObj->details = 'bbb';
+        // $brandObj->save();
+
+        // update record method 1
+        // $save_brand = Brand::where('id',1)->update([
+        //     'name'=>'aaa',
+        //     'logo' => 'aaa',
+        //     'details' => 'aaa',
+        // ]);
+
+        // update record method 2
+        // $brandObj = Brand::find(1);
+        // $brandObj->name = 'bbb';
+        // $brandObj->logo = 'bbb';
+        // $brandObj->details = 'bbb';
+        // $brandObj->save();
+
+        // $brand = Brand::find(1);
+        // $brand->delete(); // delete specific record
+        // Brand::truncate(); // truncate all table data
+
+        // Brand::destroy(1);
+        // Brand::destroy(1, 2, 3);
+        // Brand::destroy([1, 2, 3]);
+        // Brand::destroy(collect([1, 2, 3]));
+
+        // $deleted = Brand::where('active', 0)->delete(); // delete model with query
+
+
+        /* isDirty isClean - Eloquent Attribute Changes */
+        // $brand = User::create([
+        //     'name' => 'Taylor',
+        //     'logo' => 'Otwell',
+        //     'details' => 'Developer',
+        // ]);
+
+        // $brand->name = 'Painter';
+
+        // $brand->isDirty(); // true
+        // $brand->isDirty('name'); // true
+        // $brand->isDirty('logo'); // false
+
+        // $brand->isClean(); // false
+        // $brand->isClean('name'); // false
+        // $brand->isClean('logo'); // true
+
+        // $brand->save();
+
+        // $brand->wasChanged(); // true
+        // $brand->wasChanged('name'); // true
+        // $brand->wasChanged('logo'); // false
+
+        // $brand->isDirty(); // false
+        // $brand->isClean(); // true
+
+
+        // $brand = Brand::find(1);
+
+        // $brand->name; // John
+        // $brand->logo; // new logo
+
+        // $brand->name = "Jack";
+        // $brand->name; // Jack
+
+        // $brand->getOriginal('name'); // John
+        // $brand->getOriginal(); // Array of original attributes...
+
+        /* Softdelete */
+
+        // $flight->forceDelete(); // delete permenant delete
+        
+        // if ($brand->trashed()) {
+        //     // check model instance has been soft delete
+        // }
+
+        // $flight->restore(); // set the model's deleted_at column to null
+
+        // find softdeleted record and restore it with setting deleted_at value to null
+        // Brand::withTrashed()
+        // ->where('name', 'aaa')
+        // ->restore();
+
+        // withTrashed() // get trashed record along with normal record
+        // onlyTrashed() // get only trashed record
+
+        // Pruning Models --- THIS IS REMAINING
+
+        // Comparing Models
+        // if ($brand->is($anotherBrand)) {
+        // }
+        // if ($brand->isNot($anotherBrand)) {
+        // }
+        // if ($brand->author()->is($user)) {
+        // }
+
+        
+        // "mute" all events fired by a model.
+        // $brand = Brand::withoutEvents(function () use () {
+        //     Brand::findOrFail(1)->delete();
+        //     return Brand::find(2);
+        // });
+
+        // "mute" events with save() method.
+        // $brand = Brand::findOrFail(1);
+        // $brand->name = 'Victoria Faith';
+        // $brand->saveQuietly();
+    }
+
+    public function test_pagination(Request $request)
+    {
+        // return view('user.index', [
+        //     'brands' => DB::table('brands')->paginate(15)
+        // ]);
+
+        // $brands = DB::table('brands')->simplePaginate(15); // only need to display simple "Next" and "Previous" links
+
+        // $brands = Brand::paginate(15);
+        // $brands = Brand::simplePaginate(15);
+
+        // $brands = DB::table('brands')->orderBy('id')->cursorPaginate(15);
+
+        // $brands = Brand::paginate(15);
+        // $brands->withPath('/admin/brands');
+
+        // $brands = Brand::paginate(15);
+        // $brands->appends(['sort' => 'votes']);
+
+        // $brands = Brand::paginate(15)->withQueryString(); //  append all of the current request's query string values to the pagination links
+
+        // $brands = Brand::paginate(15)->fragment('brands');
+
+        // return User::paginate(); // convert to json
+
+        // {{ $brands->links() }} // display pagination link
+    }
+
+    public function test_file_upload(Request $request)
+    {
+        // $path = $request->file('avatar')->store('avatars');
+        // $path = Storage::putFile('avatars', $request->file('avatar'));
+
+        // store method will use your default disk. If you would like to specify another disk, pass the disk name as the second argument to the store method
+        // $path = $request->file('avatar')->store(
+        //     'avatars/' . $request->user()->id,
+        //     's3'
+        // );
+
+        // $path = $request->file('avatar')->storeAs(
+        //     'avatars',
+        //     $request->user()->id,
+        //     's3'
+        // );
+
+        // $file = $request->file('avatar');
+        // $name = $file->getClientOriginalName();
+        // $extension = $file->getClientOriginalExtension();
+
+        // $file = $request->file('avatar');
+        // $name = $file->getClientOriginalName(); // Generate a unique, random name...
+        // $extension = $file->getClientOriginalExtension(); // Determine the file's extension based on the file's MIME type...
+
+        // Storage::put('file.jpg', $contents, 'public'); //public or private. set visiblity
+
+        // $visibility = Storage::getVisibility('file.jpg');
+        // Storage::setVisibility('file.jpg', 'public');
+
+    }
+
+    public function test_eloquent_relationship(Request $request)
+    {
+        // $brand = Brand::find(1)->has_one_product;
+        // $product = Product::find(1)->has_one_brand;
+
+        // $brand = Brand::where('id',1)->with('has_one_product')->get();
+        // $product = Product::where('id', 1)->with('has_one_brand')->get();
+
+        // $brand = Brand::where('id', 1)->with('belongs_to_product')->first();
+        // print_r(@$brand->belongs_to_product->name);
+
+        // $brand = Brand::find(1)->has_many_product;
+        // $brand = Brand::where('id', 1)->with('has_many_product')->get();
+
+
+        echo "<pre>";
+        // print_r(@$brand->toArray());
+        // print_r(@$product->toArray());
+        exit();
+    }
 }
