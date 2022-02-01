@@ -144,5 +144,32 @@ class Brand extends Model
     // $post = Post::find(1); || $video = Video::find(1);
     // foreach ($post->comments || $video->comments as $comment) {
     // }
+
+    /* Query Scope */
+    // Local Query Scope
+    // public function brandActive($query){
+    //     return $query->where('status', 'Active');
+    // }
+
+    //Global query scope
+    // protected static function booted(){
+    //     static::addGlobalScope(new UserScope);
+    // }
+    // protected static function booted(){
+    //     static::addGlobalScope('ancient', function (Builder $builder) {
+    //         $builder->where('created_at', '<', now()->subYears(2000));
+    //     });
+    // }
+
+    // User::withoutGlobalScope(UserScope::class)->get();
+    // User::withoutGlobalScope('user')->get();
+
+    // Remove all of the global scopes...
+    // User::withoutGlobalScopes()->get();
+
+    // Remove some of the global scopes...
+    // User::withoutGlobalScopes([
+    //     FirstScope::class, SecondScope::class
+    // ])->get();
     
 }

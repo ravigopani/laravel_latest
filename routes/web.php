@@ -249,3 +249,12 @@ Route::get('test_file_upload', 'TestController@test_file_upload');
 /***** Eloquent *****/
 Route::get('test_eloquent', 'TestController@test_eloquent');
 Route::get('test_eloquent_relationship', 'TestController@test_eloquent_relationship');
+Route::get('test_eloquent_query_scope', 'TestController@test_eloquent_query_scope');
+
+Route::get('test_eloquent_collections', 'TestController@test_eloquent_collections');
+Route::get('test_general_laravel_collections', 'TestController@test_general_laravel_collections');
+
+Route::get('test_authorization', 'TestController@test_authorization');
+
+
+Route::get('test_file_storage', 'TestController@test_file_storage');

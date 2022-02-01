@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Storage;
+
 
 class TestController extends Controller
 {
@@ -601,5 +607,161 @@ class TestController extends Controller
         // print_r(@$brand->toArray());
         // print_r(@$product->toArray());
         exit();
+    }
+
+    public function test_eloquent_query_scope(Request $request){
+        // $brands = Brand::active()->get();
+        // $users = Brand::popular()->orWhere(function (Builder $query) {
+        //     $query->active();
+        // })->get();
+    }
+
+    public function test_eloquent_collections(Request $request)
+    {
+        // $brands = Brand::get()->reject(function($brand){
+        //     return $brand->status == 'aaa'; 
+        // })->toArray();
+
+        // $brands = Brand::get()->map(function ($brand) {
+        //     return $brand->name;
+        // })->toArray();
+
+        // combine above these two methods
+        // $brands = Brand::all()->reject(function ($brand) {
+        //     return $brand->active === false;
+        // })->map(function ($brand) {
+        //     return $brand->name;
+        // });
+
+        // $users->contains(User::find(1));
+
+        // $brands = Brand::find(1);
+        // $brands = $brands->diff(Brand::whereIn('id', [1, 2, 3])->get());
+        // $brands = $brands->except([1, 2, 3]);
+        // $user = $brands->find(1);
+
+        // $brands = $brands->fresh();
+        // $brands = $brands->fresh('comments');
+
+        // $brands->loadMissing(['comments', 'posts']);
+        // $brands->loadMissing('comments.author');
+        // $brands->modelKeys();
+
+        // $brands = $brands->makeVisible(['address', 'phone_number']);
+        // $brands = $brands->makeHidden(['address', 'phone_number']);
+        // $brands = $brands->only([1, 2, 3]);
+
+        // $brands->toQuery()->update([
+        //     'status' => 'Administrator',
+        // ]);
+        // $brands->toQuery()->update([
+        //     'status' => 'Administrator',
+        // ]);
+    }
+
+    public function test_general_laravel_collections(Request $request){
+        // $collection = collect([1, 2, 3]);
+
+        // Collection::macro('toUpper', function ($args = '') {
+        //     return $this->map(function ($value) use($args) {
+        //             // $args we can use
+        //             return Str::upper($value);
+        //         });
+        // });
+        // $collection = collect(['first', 'second']);
+        // $upper = $collection->toUpper(); // ['FIRST', 'SECOND']
+        // $upper = $collection->toUpper('aaaa'); // with arguments
+    }
+
+    public function test_authorization(Request $request, Brand $brand)
+    {
+        // if(!Gate::allows('update-brand-with-gate', $brand)) {
+        //     abort(403);
+        // }
+        // if (Gate::forUser($user)->allows('update-post', $post)) {
+        //     // The user can update the post...
+        // }
+        // if (Gate::forUser($user)->denies('update-post', $post)) {
+        //     // The user can't update the post...
+        // }
+        // if (Gate::any(['update-post', 'delete-post'], $post)) {
+        //     // The user can update or delete the post...
+        // }
+        // if (Gate::none(['update-post', 'delete-post'], $post)) {
+        //     // The user can't update or delete the post...
+        // }
+    }
+
+    public function test_email_verification(Request $request, Brand $brand)
+    {
+        /* use below for manual user registration */
+        // use Illuminate\Auth\Events\Registered;
+        // event(new Registered($user));
+
+        // first link send page
+        // Route::get('/email/verify', function () {
+        //     return view('auth.verify-email');
+        // })->middleware('auth')->name('verification.notice');
+
+        // second link to verify email
+        // Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        //     $request->fulfill();
+
+        //     return redirect('/home');
+        // })->middleware(['auth', 'signed'])->name('verification.verify');
+
+        //third link to resend send email
+        // Route::post('/email/verification-notification', function (Request $request) {
+        //     $request->user()->sendEmailVerificationNotification();
+        //     return back()->with('message', 'Verification link sent!');
+        // })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    }
+
+    public function test_file_storage(Request $request)    
+    {
+        // Storage::disk('local')->put('example.txt', 'Contents');
+
+        // php artisan storage:link
+        // 'links' => [
+        //     public_path('storage') => storage_path('app/public'),
+        //     public_path('images') => storage_path('app/images'),
+        // ],
+
+        // Storage::put('avatars/1', $content);
+        // Storage::disk('s3')->put('avatars/1', $content);
+
+        // Retrieving Files
+        // $contents = Storage::get('file.jpg');
+        // if (Storage::disk('s3')->exists('file.jpg')) {
+        // }
+        // if (Storage::disk('s3')->missing('file.jpg')) {
+        // }
+        // file urls
+        // $url = Storage::url('file.jpg');
+
+        /* spatie/laravel-medialibrary */
+        // $newsItem = News::find(1);
+        // $newsItem->addMedia($pathToFile)->toMediaCollection('images');
+
+        // uploads directly:
+        // $newsItem->addMedia($request->file('image'))->toMediaCollection('images');
+
+        // $newsItem->addMedia($smallFile)->toMediaCollection('downloads', 'local');
+        // $newsItem->addMedia($bigFile)->toMediaCollection('downloads', 's3');
+
+        /* Intervention/image */
+        // open an image file
+        // $img = \Image::make('public/foo.jpg');
+        // // resize image instance
+        // $img->resize(320, 240);
+        // // insert a watermark
+        // $img->insert('public/watermark.png');
+        // // save image in desired format
+        // $img->save('public/bar.jpg');
+    }
+
+    public function test_api(Request $request)
+    {
+        return [1];
     }
 }
