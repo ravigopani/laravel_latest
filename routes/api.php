@@ -19,3 +19,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('test_api', 'TestController@test_api');
+Route::apiResource('test_api_resource', 'TestController');
+
+// Route::apiResources([
+//     'photos' => PhotoController::class,
+//     'posts' => PostController::class,
+// ]);
+
+// /photos/{photo}/comments/{comment}
+// Route::resource('photos.comments', TestController::class);
+
+// default routes
+// Route::get($uri, $callback);
+// Route::post($uri, $callback);
+// Route::put($uri, $callback);
+// Route::patch($uri, $callback);
+// Route::delete($uri, $callback);
+// Route::options($uri, $callback);

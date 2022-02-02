@@ -35,6 +35,11 @@ class TestController extends Controller
         // $this->middleware('subscribed')->except('store');
     }
 
+    public function index(Request $request)
+    {
+        return ['index function'];
+    }
+
     public function testFunction1(Request $request)
     {
         return 'testFunction1 called';
