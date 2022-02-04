@@ -34,6 +34,8 @@ class Brand extends Model
     protected $guarded = []; // mass assignment not allow if column name contain in this array
     // protected $fillable = ['column_name']; // mass assignment allow if column name contain in this array
     // protected $hidden = ['column_name']; // hide column in select query check with toArray();
+    // protected $dates = ['created_at', 'deleted_at']; // which fields will be Carbon-ized
+    // protected $appends = ['field1', 'field2']; // additional values returned in JSON
 
     // protected $dispatchesEvents = [
     //     'saved' => BrandSaved::class,
@@ -70,6 +72,23 @@ class Brand extends Model
     //     'is_admin' => 'integer',
     //     'options' => 'object',
     // ]);
+
+    // public static function boot(){
+    //     parent::boot();
+    //     static::updating(function ($model) {
+    //         // do some logging
+    //         // override some property like $model->something = transform($something);
+    //     });
+    // }
+
+    // public static function boot(){
+    //     parent::boot();
+    //     self::creating(function ($model) {
+    //         $model->uuid = (string)Uuid::generate();
+    //     });
+    // }
+
+
 
     public function setFirstNameAttribute($value)
     {

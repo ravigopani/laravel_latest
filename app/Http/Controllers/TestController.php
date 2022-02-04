@@ -930,5 +930,69 @@ class TestController extends Controller
         //     ->whereNull('last_name')
         //     ->union($first)
         //     ->get();
+
+        // ->where('votes', '=', 100)
+        // ->where('votes', '>=', 100)
+        // ->where('votes', '<>', 100)
+        // ->where('name', 'like', 'T%')
+        // ->where([['status', '=', '1'],['subscribed', '<>', '1']]);
+        // ->orWhere('name', 'John')
+        //  ->orWhere(function($query) {$query->where('name', 'Abigail')->where('votes', '>', 50);});
+        // ->where('preferences->dining->meal', 'salad')
+        //  ->whereJsonContains('options->languages', 'en')
+        //  ->whereJsonContains('options->languages', ['en', 'de'])
+        //   ->whereJsonLength('options->languages', 0)
+        //  ->whereJsonLength('options->languages', '>', 1)
+        // ->whereBetween('votes', [1, 100])
+        //   ->whereNotBetween('votes', [1, 100])
+        // ->whereIn('id', [1, 2, 3])
+        // ->whereNotIn('id', [1, 2, 3])
+        //  ->whereNull('updated_at')
+        //  ->whereNotNull('updated_at')
+        // ->whereDate('created_at', '2016-12-31')
+        // ->whereMonth('created_at', '12')
+        // ->whereDay('created_at', '31')
+        // ->whereYear('created_at', '2016')
+        // ->whereYear('created_at', '2016')
+        //  ->whereColumn('first_name', 'last_name')
+        //  ->whereColumn('updated_at', '>', 'created_at')
+        // ->whereColumn([['first_name', '=', 'last_name'],['updated_at', '>', 'created_at']])
+        //  ->whereExists(function ($query) {
+        //        $query->select(DB::raw(1))
+        //              ->from('orders')
+        //              ->whereColumn('orders.user_id', 'users.id');
+        //    })
+
+        // $incomes = Income::where('amount', '<', function ($query) {
+        //     $query->selectRaw('avg(i.amount)')->from('incomes as i');
+        // })->get();
+
+        // ->latest()
+        // ->inRandomOrder()
+        // ->reorder()
+        // ->orderBy()
+        // ->groupBy()
+        // ->having('account_id', '>', 100)
+        //  ->havingBetween('number_of_orders', [5, 15])
+        // ->offset(10)
+        // ->limit(5)
+        // ->insert()
+        // ->insertOrIgnore()
+        // ->insertGetId()
+        // ->upsert()
+        // ->update()
+        // ->updateOrInsert()
+        // ->increment('votes');
+        // ->decrement('votes');
+        // ->increment('votes', 5);
+        // ->decrement('votes', 5);
+        // ->delete();
+        // ->truncate();
+        //  ->sharedLock()
+        // ->lockForUpdate()
+        // ->dd();
+        // ->dump();
     }
+
+    
 }
