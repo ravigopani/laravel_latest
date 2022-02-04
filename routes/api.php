@@ -36,3 +36,10 @@ Route::apiResource('test_api_resource', 'TestController');
 // Route::patch($uri, $callback);
 // Route::delete($uri, $callback);
 // Route::options($uri, $callback);
+
+// php artisan make:resource UserResource // eloquent relationship
+// php artisan make:resource User --collection 
+// dont get too much of knowledge -- find more about it
+
+// Laravel Sanctum
+// solve problems of -> API Tokens & SPA Authentication

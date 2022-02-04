@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TestController extends Controller
 {
@@ -25,7 +26,8 @@ class TestController extends Controller
      */
     public function __invoke(Request $request)
     {
-        info('Dont know how to use __invoke');
+        // php artisan make:controller ProvisionServer --invokable
+        info('this is for singleton action controller');
     }
 
     public function __construct()
@@ -767,6 +769,166 @@ class TestController extends Controller
 
     public function test_api(Request $request)
     {
-        return [1];
+        // return [1];
+
+        // automatic error message with APP_DEBUG = false in laravel
+        // $brand = Brand::findOrFail('aaaa'); // return automatically 404 with message 'Brand not found'
+        
+        // customize Exception message
+        // $brand = Brand::find('aaa');
+        // if(!$brand){
+        //     abort(code:404, message: 'User not founddd....!!');
+        // }
+
+        // we can custom message in Exception Handler class in register() method as below
+        // $this->renderable(function(NotFoundHttpException $e, $request){
+        //     if($request->wantJson()){
+        //         return response()->json(['message'=>'Object not found.', status: 404]);
+        //     }   
+        // });
+    }
+
+    public function test_logging(Request $request){
+        // Log::emergency($message);
+        // Log::alert($message);
+        // Log::critical($message);
+        // Log::error($message);
+        // Log::warning($message);
+        // Log::notice($message);
+        // Log::info($message);
+        // Log::debug($message);
+
+        // Contextual Information
+        // Log::info('User failed to login.', ['id' => $user->id]);
+    }
+
+    public function test_error_handling(Request $request)
+    {
+        // $this->reportable(function (InvalidOrderException $e) {
+        // });
+        // $this->reportable(function (InvalidOrderException $e) {
+        // })->stop();
+        // $this->reportable(function (InvalidOrderException $e) {
+        //     return false;
+        // });
+
+        // rendering exception
+        // $this->renderable(function (InvalidOrderException $e, $request) {
+        //     return response()->view('errors.invalid-order', [], 500);
+        // });
+
+        // $this->renderable(function(NotFoundHttpException $e, $request){
+        //     if($request->wantJson()){
+        //         return response()->json(['message'=>'Object not found.', status: 404]);
+        //     }   
+                // if ($request->is('api/*')) {
+                //     return response()->json([
+                //         'message' => 'Record not found.'
+                //     ], 404);
+                // }
+        // });
+
+        // try {
+        //     $user = (new UserSerive())->findByUsername($username);
+        // } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
+        //     return view('users.notfound', ['error'=>$exception->getMessage()]);
+        // }
+
+            
+        // Custom HTTP Error Pages
+        // resources/views/errors/404.blade.php
+        // <h2>{{ $exception->getMessage() }}</h2> 
+        // php artisan vendor:publish --tag=laravel-errors
+    }
+
+    public function test_notification(Request $request)
+    {
+        // use Notifiable;
+
+        // use App\Notifications\InvoicePaid;
+        // $user->notify(new InvoicePaid($invoice));
+
+        // use Illuminate\Support\Facades\Notification;
+        // Notification::send($users, new InvoicePaid($invoice));
+        // Notification::sendNow($developers, new DeploymentCompleted($deployment));
+
+        // Need to learn more in that
+    }
+
+    public function test_testing(Request $request)
+    {
+        // php artisan make:test UserTest
+        // php artisan make:test UserTest --unit //  to create a test within the tests/Unit directory
+        // php artisan make:test UserTest --pest // ou may provide the --pest option to the make:test command:
+        // php artisan make:test UserTest --unit --pest
+
+        // class ExampleTest extends TestCase
+        // {
+        //     public function test_basic_test()
+        //     {
+        //         $this->assertTrue(true);
+        //     }
+        // }
+
+        // runnning test
+        // php artisan test
+        // php artisan test --testsuite=Feature --stop-on-failure
+    }
+
+    public function test_database_tesing(Request $request)
+    {
+        // use Illuminate\Foundation\Testing\RefreshDatabase;
+        // use RefreshDatabase;
+
+        // public function test_basic_example(){
+        //     $response = $this->get('/');
+        // }
+    }
+
+    public function test_query_builder_raw_expressoin(Request $request)
+    {
+        // $users = DB::table('users')
+        //     ->select(DB::raw('count(*) as user_count, status'))
+        //     ->where('status', '<>', 1)
+        //     ->groupBy('status')
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->selectRaw('price * ? as price_with_tax', [1.0825])
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->select('department', DB::raw('SUM(price) as total_sales'))
+        //     ->groupBy('department')
+        //     ->havingRaw('SUM(price) > ?', [2500])
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->select('city', 'state')
+        //     ->groupByRaw('city, state')
+        //     ->get();
+
+        // $users = DB::table('users')
+        // ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        // ->join('orders', 'users.id', '=', 'orders.user_id')
+        // ->select('users.*', 'contacts.phone', 'orders.price')
+        // ->get();
+
+        // $users = DB::table('users')
+        //     ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+        //     ->get();
+
+        // $sizes = DB::table('sizes')
+        // ->crossJoin('colors')
+        // ->get();
+
+        // $users = DB::table('users')
+        //     ->whereNull('last_name')
+        //     ->union($first)
+        //     ->get();
     }
 }

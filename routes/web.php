@@ -256,5 +256,13 @@ Route::get('test_general_laravel_collections', 'TestController@test_general_lara
 
 Route::get('test_authorization', 'TestController@test_authorization');
 
-
 Route::get('test_file_storage', 'TestController@test_file_storage');
+
+Route::get('test_logging', 'TestController@test_logging');
+Route::get('test_error_handling', 'TestController@test_error_handling');
+
+Route::get('test_notification', 'TestController@test_notification');
+
+Route::get('test_testing', 'TestController@test_testing');
+
+Route::get('test_query_builder_raw_expressoin', 'TestController@test_query_builder_raw_expressoin');

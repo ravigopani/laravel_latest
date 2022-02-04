@@ -40,6 +40,9 @@ class Brand extends Model
     //     'deleted' => BrandDeleted::class,
     // ];
 
+    // we can call event by following code too
+    // event(new BrandCreated($brand));
+
     // protected static function booted()
     // {
     //     static::created(function ($user) {

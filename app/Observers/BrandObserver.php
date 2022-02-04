@@ -16,7 +16,8 @@ class BrandObserver
      */
     public function created(Brand $brand)
     {
-        //
+        // if($brand->isDirty()){
+        // }
     }
 
     /**
