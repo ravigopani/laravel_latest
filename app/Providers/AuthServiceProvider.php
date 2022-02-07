@@ -4,6 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
+
+use App\Models\Passport\AuthCode;
+use App\Models\Passport\Client;
+use App\Models\Passport\PersonalAccessClient;
+use App\Models\Passport\Token;
 
 use App\Models\User;
 use App\Models\Brand;
@@ -34,6 +40,15 @@ class AuthServiceProvider extends ServiceProvider
         });
         // Gate::define('update-brand-with-gate', [BrandPolicy::class, 'update']); // same as controller
 
+        // for laravel passport
+        // if (!$this->app->routesAreCached()) {
+        //     Passport::routes();
+        // }
+
+        // Passport::useTokenModel(Token::class);
+        // Passport::useClientModel(Client::class);
+        // Passport::useAuthCodeModel(AuthCode::class);
+        // Passport::usePersonalAccessClientModel(PersonalAccessClient::class);
 
     }
 }

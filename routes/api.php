@@ -43,3 +43,22 @@ Route::apiResource('test_api_resource', 'TestController');
 
 // Laravel Sanctum
 // solve problems of -> API Tokens & SPA Authentication
+
+
+// API Versioning
+// protected $apiNamespace ='App\Http\Controllers\Api';
+// Route::group([
+//     'middleware' => ['api', 'api_version:v1'],
+//     'namespace'  => "{$this->apiNamespace}\V1",
+//     'prefix'     => 'api/v1',
+// ], function ($router) {
+//     require base_path('routes/api_v1.php');
+// });
+
+// Route::group([
+//     'middleware' => ['api', 'api_version:v2'],
+//     'namespace'  => "{$this->apiNamespace}\V2",
+//     'prefix'     => 'api/v2',
+// ], function ($router) {
+//     require base_path('routes/api_v2.php');
+// });

@@ -88,13 +88,6 @@ class Brand extends Model
     //     });
     // }
 
-
-
-    public function setFirstNameAttribute($value)
-    {
-        $this->attributes['first_name'] = strtolower($value);
-    }
-
     public function has_one_product(){
         return $this->hasOne(Product::class, 'brand_id', 'id');
     }
@@ -192,6 +185,5 @@ class Brand extends Model
     // Remove some of the global scopes...
     // User::withoutGlobalScopes([
     //     FirstScope::class, SecondScope::class
-    // ])->get();
-    
+    // ])->get();    
 }

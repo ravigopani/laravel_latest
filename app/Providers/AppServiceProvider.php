@@ -36,6 +36,17 @@ class AppServiceProvider extends ServiceProvider
         // Blade::withoutDoubleEncoding(); // disable double encoding, 
         // Blade::component('package-alert', Alert::class); //you will need to manually register your component class and its HTML tag alias
         // <x-package-alert/> use above alias as this tag
-        
+
+        /* Blade::directive('datetime', function ($expression) {
+            return "<?php echo ($expression)->format('m/d/Y H:i'); ?>";
+        }); */
+        // use this in blade
+        // @datetime($var) 
+
+        // Blade::stringable(function (Money $money) {
+        //     return $money->formatTo('en_GB');
+        // });
+        // this use in blade
+        // Cost: {{ $money }}
     }
 }

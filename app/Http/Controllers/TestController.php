@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BLog;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Events\BrandCreated;
+use App\Jobs\BrandJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
@@ -15,6 +18,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Http;
 
 class TestController extends Controller
 {
@@ -885,7 +890,7 @@ class TestController extends Controller
         // }
     }
 
-    public function test_query_builder_raw_expressoin(Request $request)
+    public function test_query_builder_raw_expression(Request $request)
     {
         // $users = DB::table('users')
         //     ->select(DB::raw('count(*) as user_count, status'))
@@ -994,5 +999,253 @@ class TestController extends Controller
         // ->dump();
     }
 
-    
+    public function test_observer(Request $request)
+    {
+        // php artisan make:observer UserObserver --model=User
+        // User::observe(UserObserver::class); // put this inside `boot` method of EventServiceProvider 
+
+        // $save_brand = Brand::create([
+        //     'name'=>'new',
+        //     'logo' => 'new logo',
+        //     'details' => 'new logo details',
+        //     'details' => 'Active'
+        // ]);
+        // $brandObj = new Brand;
+        // $brandObj->name = 'new';
+        // $brandObj->logo =  'new logo';
+        // $brandObj->details = 'new logo details';
+        // $brandObj->details = 'Active';
+        // $save_brand = $brandObj->save();
+
+        // "mute" all events fired by a model.
+        // $brand = Brand::withoutEvents(function () use () {
+        //     Brand::findOrFail(1)->delete();
+        //     return Brand::find(2);
+        // });
+
+        // "mute" events with save() method.
+        // $brand = Brand::findOrFail(1);
+        // $brand->name = 'Victoria Faith';
+        // $brand->saveQuietly();
+    }   
+
+    public function test_event(Request $request)
+    {
+        Event::listen(function (BrandCreated $event) {
+        });
+    }
+
+    public function test_http_client(Request $request)
+    {
+        // composer require guzzlehttp/guzzle
+
+        // $response = Http::get('http://example.com');
+        // $response->body() : string;
+        // $response->json() : array|mixed;
+        // $response->object() : object;
+        // $response->collect() : Illuminate\Support\Collection;
+        // $response->status() : int;
+        // $response->ok() : bool;
+        // $response->successful() : bool;
+        // $response->failed() : bool;
+        // $response->serverError() : bool;
+        // $response->clientError() : bool;
+        // $response->header($header) : string;
+        // $response->headers() : array;
+
+        // return Http::dd()->get('http://example.com');
+        $response = Http::post('http://example.com/users',
+            [
+                'name' => 'Steve',
+                'role' => 'Network Administrator',
+            ]
+        );
+
+        // $response = Http::asForm()->post('http://example.com/users', [
+        //     'name' => 'Sara',
+        //     'role' => 'Privacy Consultant',
+        // ]);
+
+        // $response = Http::withBody(
+        //     base64_encode($photo),
+        //     'image/jpeg'
+        // )->post('http://example.com/photo');
+
+        // $response = Http::attach(
+        //     'attachment',
+        //     file_get_contents('photo.jpg'),
+        //     'photo.jpg'
+        // )->post('http://example.com/attachments');
+
+        // $photo = fopen('photo.jpg', 'r');
+        // $response = Http::attach(
+        //     'attachment', $photo, 'photo.jpg'
+        // )->post('http://example.com/attachments');
+
+        // $response = Http::withHeaders([
+        //     'X-First' => 'foo',
+        //     'X-Second' => 'bar'
+        // ])->post('http://example.com/users', [
+        //     'name' => 'Taylor',
+        // ]);
+
+        // $response = Http::accept('application/json')->get('http://example.com/users');
+        // $response = Http::acceptJson()->get('http://example.com/users');
+
+        // $response = Http::withToken('token')->post(...);
+
+        // $response = Http::timeout(3)->get(...);
+
+        // $response = Http::retry(3, 100, function ($exception) {
+        //     return $exception instanceof ConnectionException;
+        // })->post(...);
+
+        // // Determine if the status code is >= 200 and < 300...
+        // $response->successful();
+        // // Determine if the status code is >= 400...
+        // $response->failed();
+        // // Determine if the response has a 400 level status code...
+        // $response->clientError();
+        // // Determine if the response has a 500 level status code...
+        // $response->serverError();
+    }
+
+    public function test_laravel_socialite(Request $request)
+    {
+        // for third party login
+
+        // $githubUser = Socialite::driver('github')->user();
+
+        // $user = User::where('github_id', $githubUser->id)->first();
+
+        // if ($user) {
+        //     $user->update([
+        //         'github_token' => $githubUser->token,
+        //         'github_refresh_token' => $githubUser->refreshToken,
+        //     ]);
+        // } else {
+        //     $user = User::create([
+        //         'name' => $githubUser->name,
+        //         'email' => $githubUser->email,
+        //         'github_id' => $githubUser->id,
+        //         'github_token' => $githubUser->token,
+        //         'github_refresh_token' => $githubUser->refreshToken,
+        //     ]);
+        // }
+
+        // Auth::login($user);
+
+        // return redirect('/dashboard');
+    }
+
+    public function test_artisan_command(Request $request)
+    {   
+        // php artisan make:command SendEmails
+
+        // check App/Console/Commands/ and files
+        // check App/Console/kernal.php // commands() function
+
+        // Optional argument...
+        // mail:send {user?}
+
+        // Optional argument with default value...
+        // mail:send {user=foo}
+
+    }
+
+    public function test_task_scheduling(Request $request)
+    {
+        // php artisan schedule:list
+
+        // invokable object
+        // $schedule->call(new DeleteRecentUsers)->daily();
+
+        // check App/Console/kernal.php // commands() function
+
+        // Scheduling Artisan Commands
+        // $schedule->command('emails:send Taylor --force')->daily();
+        // $schedule->command(SendEmailsCommand::class, ['Taylor', '--force'])->daily();
+    }
+
+    public function test_cashing(Request $request)
+    {
+        // php artisan cache:table
+
+        // $value = Cache::get('key');
+        // $value = Cache::get('key', 'default');
+
+        // $value = Cache::get('key', function () {
+        //     return DB::table(...)->get();
+        // });
+
+
+        // if (Cache::has('key')) {}
+
+        // Cache::increment('key');
+        // Cache::increment('key', $amount);
+        // Cache::decrement('key');
+        // Cache::decrement('key', $amount);
+
+
+        // $value = Cache::remember('brands', $seconds, function () {
+        //     return DB::table('brands')->get();
+        // });
+
+        // Cache::put('key', 'value', $seconds = 10);
+        // Cache::put('key', 'value', now()->addMinutes(10));
+        // Cache::forever('key', 'value');
+        // Cache::forget('key');
+        // Cache::flush();
+
+        // $value = cache('key');
+        // cache(['key' => 'value'], $seconds);
+        // cache(['key' => 'value'], now()->addMinutes(10));
+    }
+
+    public function test_job(Request $request)
+    {
+        // php artisan make:job BrandJob
+
+        BrandJob::dispatch(['aaa'=>'bbb']);
+
+        // BrandJob::dispatchIf($accountActive, ['aaa'=>'bbb']);
+        // BrandJob::dispatchUnless($accountSuspended, ['aaa'=>'bbb']);
+        // BrandJob::dispatch(['aaa'=>'bbb'])->delay(now()->addMinutes(10));
+        // BrandJob::dispatchSync(['aaa'=>'bbb']);
+        // BrandJob::dispatch(['aaa'=>'bbb'])->afterCommit();
+        // BrandJob::dispatch(['aaa'=>'bbb'])->beforeCommit();
+
+        // dealing with failed job
+        // php artisan queue:failed-table
+        // php artisan migrate
+    }
+
+    public function test_laravel_passport(Request $requests)
+    {
+
+        // $response = Http::asForm()->post('http://localhost/laravel_latest/public/oauth/token', [
+        //     'grant_type' => 'Laravel Password Grant Client',
+        //     'client_id' => '2',
+        //     'client_secret' => 'pHbwAW0G8an4CbqDyNEYU34o8N7XKAgQryVMkN1n',
+        //     'username' => 'ravi@gmail.com',
+        //     'password' => 'admin@123',
+        //     'scope' => '',
+        // ]);
+        // return $response->json();
+
+        // $response = Http::asForm()->post('http://localhost/laravel_latest/public/oauth/token', [
+        //     'grant_type' => 'refresh_token',
+        //     'refresh_token' => 'the-refresh-token',
+        //     'client_id' => 'client-id',
+        //     'client_secret' => 'client-secret',
+        //     'scope' => '',
+        // ]);
+        // return $response->json();
+    }
+
+    public function test_scout(Request $request)
+    {
+        $blogs = Blog::where('price', '>', 100)->searchable();
+        $orders = Blog::search('Star Trek')->get();
+    }
 }

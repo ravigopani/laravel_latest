@@ -17,6 +17,7 @@ use App\Models\User;
 
 /***** Welcome page Route *****/
 Route::get('/', function () {
+    // event(new App\Events\BrandCreated('hello world'));
     return view('welcome');
 });
 
@@ -265,4 +266,24 @@ Route::get('test_notification', 'TestController@test_notification');
 
 Route::get('test_testing', 'TestController@test_testing');
 
-Route::get('test_query_builder_raw_expressoin', 'TestController@test_query_builder_raw_expressoin');
+Route::get('test_query_builder_raw_expression', 'TestController@test_query_builder_raw_expression');
+
+Route::get('test_observer', 'TestController@test_observer');
+
+Route::get('test_event', 'TestController@test_event');
+
+Route::get('test_http_client', 'TestController@test_http_client');
+
+Route::get('test_laravel_socialite', 'TestController@test_laravel_socialite');
+
+Route::get('test_artisan_command', 'TestController@test_artisan_command');
+
+Route::get('test_task_scheduling', 'TestController@test_task_scheduling');
+
+Route::get('test_cashing', 'TestController@test_cashing');
+
+Route::get('test_job', 'TestController@test_job');
+
+Route::get('test_laravel_passport', 'TestController@test_laravel_passport');
+
+Route::get('test_scout', 'TestController@test_scout');

@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
         <!-- Styles -->
         <style>
@@ -128,5 +129,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+            var pusher = new Pusher('f9dd0bb48bb7c2562bf1', {
+            cluster: 'ap2'
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+                alert(JSON.stringify(data));
+            });
+        </script>
     </body>
 </html>

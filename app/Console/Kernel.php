@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+        // $schedule->call(function () {
+        //     DB::table('recent_users')->delete();
+        // })->daily();
     }
 
     /**
@@ -28,5 +32,19 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+
+        // closure command
+        // Artisan::command('mail:send {user}', function ($user) {
+        //     $this->info("Sending email to: {$user}!");
+        // });
+
+        // Artisan::command('mail:send {user}', function (DripEmailer $drip, $user) {
+        //     $drip->send(User::find($user));
+        // });
+
+        // Artisan::command('mail:send {user}', function ($user) {
+        //     // ...
+        // })->purpose('Send a marketing email to a user');
+
     }
 }
