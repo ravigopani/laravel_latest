@@ -702,6 +702,16 @@ class TestController extends Controller
         // if (Gate::none(['update-post', 'delete-post'], $post)) {
         //     // The user can't update or delete the post...
         // }
+
+        // spatie/laravel-permission
+        // Adding permissions to a user
+        // $user->givePermissionTo('edit articles');
+        // // Adding permissions via a role
+        // $user->assignRole('writer');
+        // $role->givePermissionTo('edit articles');
+
+        // $user->can('edit articles');
+
     }
 
     public function test_email_verification(Request $request, Brand $brand)
